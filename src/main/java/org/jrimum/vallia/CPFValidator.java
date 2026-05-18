@@ -34,12 +34,12 @@ package org.jrimum.vallia;
  * 
  * <p>
  * O cadastro de pessoa física tem as seguintes características:
+ * </p>
  * <ul>
  * <li>Contém apenas números.</li>
  * <li>Possui tamanho 11 sem formatação e 14 com formatação.</li>
  * <li>Pode estar no formato ###.###.###-XX, onde XX é o dígito verificador.</li>
  * </ul>
- * </p>
  * <p>
  * A validação consiste em verificar essas características e se o dígito
  * verificador é válido.

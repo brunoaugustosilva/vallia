@@ -29,8 +29,8 @@
 
 package org.jrimum.vallia.digitoverificador;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-import static org.apache.commons.lang.StringUtils.replaceChars;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.replaceChars;
 import static org.jrimum.utilix.text.Strings.fillWithZeroLeft;
 
 import java.util.regex.Pattern;
@@ -48,9 +48,9 @@ import org.jrimum.utilix.Exceptions;
  * <h3>Exemplo para um número hipotético 222.333.666-XX:</h3>
  * <p>
  * Primeiramente obtém-se um número R, calculado através da rotina de módulo 11,
- * a partir dos nove primeiros números do CPF, nesse caso 222333666. <br />
- * Para obter o primeiro dígito verificador deve-se seguir a seguinte lógica: <br />
- * <br />
+ * a partir dos nove primeiros números do CPF, nesse caso 222333666. <br>
+ * Para obter o primeiro dígito verificador deve-se seguir a seguinte lógica: <br>
+ * <br>
  * Se o número R for menor que 2, o dígito terá valor 0 (zero); senão, será a
  * subtração do valor do módulo (11) menos o valor do número R, ou seja,
  * <code>DV = 11 - R</code>.

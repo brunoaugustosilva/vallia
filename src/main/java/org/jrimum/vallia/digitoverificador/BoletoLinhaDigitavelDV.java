@@ -31,8 +31,8 @@ package org.jrimum.vallia.digitoverificador;
 
 
 import static java.util.regex.Pattern.matches;
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-import static org.apache.commons.lang.StringUtils.replaceChars;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.replaceChars;
 import static org.jrimum.utilix.text.Strings.fillWithZeroLeft;
 
 import org.jrimum.utilix.Exceptions;
@@ -44,23 +44,23 @@ import org.jrimum.utilix.Exceptions;
  * </p>
  * <p>
  * Para fins de validação é preciso saber o seguinte:
+ * </p>
  * <ul>
  * <li>O primerio campo tem tamanho 9 (nove) mais o dígito verificador.</li>
  * <li>O segundo campo tem tamanho 10 (dez) mais o dígito verificador.</li>
  * <li>O terceiro campo tem tamanho 10 (dez) mais o dígito verificador.</li>
  * </ul>
- * </p>
  * <p>
  * Obs1.: Todos os campos listados podem vir com um ponto (.) de separação
- * exatamente após o dígito da 5ª posição. <br />
- * Exemplo de linha digitável:<br />
+ * exatamente após o dígito da 5ª posição. <br>
+ * Exemplo de linha digitável:<br>
  * <code>99997.77213 30530.150082 18975.000003 1 10010000035000</code>
  * </p>
  * <p>
  * O cálculo do dígito verificador é descrito através da expressão
- * <code>DV = 11 - R</code>, onde R é o resultado do cálculo do módulo.<br />
+ * <code>DV = 11 - R</code>, onde R é o resultado do cálculo do módulo.<br>
  * Obs1.: O dígito verificador será 0 (zero) se o resto (resultado do módulo)
- * for 0 (zero). <br />
+ * for 0 (zero). <br>
  * Obs2.: A rotina de módulo utilizada é a módulo 10.
  * </p>
  * 

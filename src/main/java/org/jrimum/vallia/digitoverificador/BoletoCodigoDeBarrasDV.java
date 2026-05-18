@@ -29,12 +29,12 @@
 
 package org.jrimum.vallia.digitoverificador;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jrimum.utilix.Exceptions;
 
 /**
  * <p>
- * Lógica de cálculo do dígito verificador do código de barras de um boleto.<br />
+ * Lógica de cálculo do dígito verificador do código de barras de um boleto.<br>
  * A lógica funciona da seguinte forma:
  * </p>
  * <p>
@@ -44,7 +44,7 @@ import org.jrimum.utilix.Exceptions;
  * </p>
  * <p>
  * Calcula-se o dígito verificador através da expressão <code>DV = 11 - R</code>
- * , onde R é o resultado do cálculo do módulo.<br />
+ * , onde R é o resultado do cálculo do módulo.<br>
  * Observação: O dígito verificador será 1 para os restos (resultado do módulo):
  * 0 , 10 ou 1 (zero, dez, um).
  * </p>

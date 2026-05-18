@@ -33,7 +33,7 @@ package org.jrimum.vallia.digitoverificador;
 import static org.jrimum.vallia.digitoverificador.TipoDeModulo.MODULO10;
 import static org.jrimum.vallia.digitoverificador.TipoDeModulo.MODULO11;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jrimum.utilix.Exceptions;
 import org.jrimum.utilix.Objects;
 
@@ -165,9 +165,9 @@ public class Modulo {
 	 * resultado em % 11
 	 * </p>
 	 * 
-	 * @param numero
-	 * @param limiteMin
-	 * @param limiteMax
+	 * @param numero número do CPF/CNPJ
+	 * @param limiteMin Limite inferior
+	 * @param limiteMax Limite superior
 	 * @return Resultado de calculeSomaSequencialMod11 % 11
 	 * 
 	 * @since 0.2
@@ -189,9 +189,9 @@ public class Modulo {
 	 * calculeMod11
 	 * </p>
 	 * 
-	 * @param numero
-	 * @param limiteMin
-	 * @param limiteMax
+	 * @param numero Número do CPF ou CNPJ
+	 * @param limiteMin Limite inferior
+	 * @param limiteMax Limite Superior
 	 * @return resultado do cálculo
 	 * 
 	 * @since 0.2
@@ -216,6 +216,7 @@ public class Modulo {
 	 * </p>
 	 * <p>
 	 * Exemplo para o número <tt>654321</tt>:
+	 * </p>
 	 * 
 	 * <pre>
 	 * +---+---+---+---+---+---+
@@ -226,15 +227,14 @@ public class Modulo {
 	 *   |   |   |   |   |   |
 	 *  =42 =30 =20 =12 =6  =2
 	 *   +---+---+---+---+---+-&gt;
-	 * </pre
+	 * </pre>
 	 * 
-	 * </p>
 	 * 
-	 * @param numero
-	 * @param limiteMin
-	 * @param limiteMax
+	 * @param numero Número do CPF ou CNPJ
+	 * @param limiteMin Limite Inferior
+	 * @param limiteMax Limite Superior
 	 * @return Soma da sequencia sem executar Mod 11
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException Se o texto informado não for apenas um número
 	 * 
 	 * @since 0.2
 	 */
@@ -274,9 +274,9 @@ public class Modulo {
 	 * calculeMod10
 	 * </p>
 	 * 
-	 * @param numero
-	 * @param limiteMin
-	 * @param limiteMax
+	 * @param numero Número do CPF/CNPJ
+	 * @param limiteMin Limite Inferior
+	 * @param limiteMax Limite Superior
 	 * @return resultado do cálculo
 	 * 
 	 * @since 0.2
@@ -295,9 +295,9 @@ public class Modulo {
 	 * resultado em % 10
 	 * </p>
 	 * 
-	 * @param numero
-	 * @param limiteMin
-	 * @param limiteMax
+	 * @param numero Número do CPF ou CNPJ em texto
+	 * @param limiteMin Limite Inferior
+	 * @param limiteMax Limite superior
 	 * @return resultado de calculeSomaSequencialMod10 % 10
 	 * 
 	 * @since 0.2
@@ -323,6 +323,7 @@ public class Modulo {
 	 * </p>
 	 * <p>
 	 * Exemplo para o número <tt>123456</tt>:
+	 * </p>
 	 * 
 	 * <pre>
 	 * +---+---+---+---+---+---+
@@ -334,18 +335,17 @@ public class Modulo {
 	 *  =1  =4  =3  =8  =5  =[ 3 &lt;= ( 1 + 2 &lt;==12 ) ] = 24
 	 *   +---+---+---+---+---+-&gt; = (24 / 10) = 3, resto 3; Então o módulo é igual a 3.
 	 * </pre>
-	 * 
-	 * </p>
+	 *
 	 * 
 	 * <p>
 	 * Geralmente os limites para o módulo 10 são mínimo 1 e máximo 2 apenas.
 	 * </p>
 	 * 
-	 * @param numero
-	 * @param limiteMin
-	 * @param limiteMax
+	 * @param numero Número do CPF ou CNPJ
+	 * @param limiteMin Limite Inferior
+	 * @param limiteMax Limite Superior
 	 * @return soma sequencial usada no cálculo do módulo
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException Se o texto não tiver apenas números
 	 * 
 	 * @since 0.2
 	 */
@@ -387,9 +387,9 @@ public class Modulo {
 	/**
 	 * Executa o cáculo do módulo da instância.
 	 * 
-	 * @param numero
+	 * @param numero Número do CPF ou CNPJ em texto
 	 * @return Módulo
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException Se o texto não tiver apenas númeross
 	 * 
 	 * @since 0.2
 	 */
@@ -418,7 +418,7 @@ public class Modulo {
 	/**
 	 * Executa o cáculo do módulo da instância.
 	 * 
-	 * @param numero
+	 * @param numero Número do CPF ou CNPJ
 	 * @return módulo
 	 * 
 	 * @since 0.2
@@ -434,11 +434,11 @@ public class Modulo {
 	 * instância do módulo da classe.
 	 * 
 	 * <p>
-	 * Valores padrões: <br />
-	 * <br />
-	 * <code>MODULO10</code>: (limiteMinimo = 1 e limiteMaximo = 2)<br />
+	 * Valores padrões: <br>
+	 * <br>
+	 * <code>MODULO10</code>: (limiteMinimo = 1 e limiteMaximo = 2)<br>
 	 * 
-	 * <code>MODULO11</code>: (limiteMinimo = 2 e limiteMaximo = 9)<br />
+	 * <code>MODULO11</code>: (limiteMinimo = 2 e limiteMaximo = 9)<br>
 	 * </p>
 	 * 
 	 * @since 0.2

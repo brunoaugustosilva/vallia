@@ -117,6 +117,7 @@ public class TestAbstractCPRFValidator{
 
 		assertNotNull(AbstractCPRFValidator.create("11222333000181"));
 		assertNotNull(AbstractCPRFValidator.create("11.222.333/0001-81"));
+		assertNotNull(AbstractCPRFValidator.create("41.280.4E1/0001-94"));
 
 	}
 

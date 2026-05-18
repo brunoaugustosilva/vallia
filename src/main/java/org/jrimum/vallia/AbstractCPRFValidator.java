@@ -34,7 +34,7 @@ import static org.jrimum.utilix.Objects.isNotNull;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jrimum.utilix.Exceptions;
 import org.jrimum.utilix.Objects;
 import org.jrimum.vallia.digitoverificador.AbstractDigitoVerificador;
@@ -50,6 +50,7 @@ import org.jrimum.vallia.digitoverificador.CPFDV;
  * @author <a href="mailto:romulomail@gmail.com">Rômulo Augusto</a>
  * @author <a href="http://www.nordestefomento.com.br">Nordeste Fomento
  *         Mercantil</a>
+ * @author <a href="mailto:brunoaugustosilva8@gmail.com">Bruno Augusto</a>
  * 
  * @since 0.2
  * 
@@ -77,8 +78,9 @@ public abstract class AbstractCPRFValidator {
 	/**
 	 * Expressão regular para validação de CNPJ: "##.###.###/####-##" ou
 	 * "##############".
+	 * Ajuste para o CNPJ alfanumérico que entrará em vigor em 01/06/2026
 	 */
-	private static final String REGEX_CNPJ = "(\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2})|(\\d{14})";
+	private static final String REGEX_CNPJ = "([A-Z0-9]{2}\\.?[A-Z0-9]{3}\\.?[A-Z0-9]{3}\\/?[A-Z0-9]{4}-?\\d{2})";
 
 	/**
 	 * Expressão regular para validação de um cadastro: "###" ou
@@ -160,13 +162,13 @@ public abstract class AbstractCPRFValidator {
 	 * de um identificador.
 	 * <p>
 	 * Primeiro é feita uma pré-validação que consiste em:
+	 * </p>
 	 * <ul>
 	 * <li>Verificar se o parâmetro não é nulo.</li>
 	 * <li>Verificar se o parâmetro não é vazio.</li>
 	 * <li>Verificar se o parâmetro está em algum formatador válido para
 	 * cadastro de pessoa.</li>
 	 * </ul>
-	 * </p>
 	 * 
 	 * @param codigoDoCadastro
 	 *            - identificador do cadastro de pessoa.
@@ -192,7 +194,7 @@ public abstract class AbstractCPRFValidator {
 	/**
 	 * Cria um validador a partir do tipo de CPRF.
 	 * 
-	 * @param tipoDeCadastro
+	 * @param tipoDeCadastro Objeto que representa CPF/CNPJ
 	 * @return um validador
 	 * 
 	 * @since 0.2
@@ -218,9 +220,9 @@ public abstract class AbstractCPRFValidator {
 	/**
 	 * Faz a pré-validação e se correto identifica o tipo de cadastro.
 	 * 
-	 * @param codigoDoCadastro
+	 * @param codigoDoCadastro String que representa CPF/CNPJ
 	 * @return Tipo de CPRF
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException Se o CPF/CNPJ não for válido
 	 * 
 	 * @since 0.2
 	 */
@@ -264,10 +266,10 @@ public abstract class AbstractCPRFValidator {
 	/**
 	 * Define se os parâmetros válidos em relação a nulidade e formato de CPRF.
 	 * 
-	 * @param codigoDoCadastro
-	 * @param tipoDeCadastro
+	 * @param codigoDoCadastro Texto com o valor de cadastro
+	 * @param tipoDeCadastro Se o tipo de cadastro é CNPJ ou CPF
 	 * @return indicação de aprovação
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException Se o texto for de tamanho incorreto ou náo existir
 	 * 
 	 * @since 0.2
 	 */
@@ -300,7 +302,7 @@ public abstract class AbstractCPRFValidator {
 	}
 
 	/**
-	 * Recupera o cadastro de pessoa a ser validado. <br />
+	 * Recupera o cadastro de pessoa a ser validado. <br>
 	 * Obs.: A String retornada não possui formatação, ou seja, possui apenas os
 	 * dígitos.
 	 * 
