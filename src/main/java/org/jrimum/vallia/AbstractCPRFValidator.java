@@ -80,7 +80,7 @@ public abstract class AbstractCPRFValidator {
 	 * "##############".
 	 * Ajuste para o CNPJ alfanumérico que entrará em vigor em 01/06/2026
 	 */
-	private static final String REGEX_CNPJ = "([A-Z0-9]{2}\\.?[A-Z0-9]{3}\\.?[A-Z0-9]{3}\\/?[A-Z0-9]{4}-?\\d{2})";
+	private static final String REGEX_CNPJ = "([A-Za-z0-9]{2}\\.?[A-Za-z0-9]{3}\\.?[A-Za-z0-9]{3}\\/?[A-Za-z0-9]{4}-?\\d{2})|([A-Za-z0-9]{14})";
 
 	/**
 	 * Expressão regular para validação de um cadastro: "###" ou
