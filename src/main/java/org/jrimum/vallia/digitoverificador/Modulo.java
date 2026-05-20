@@ -57,6 +57,7 @@ public class Modulo {
 	 * Mensagem da exceção lançada no método calcular.
 	 */
 	private static final String O_ARGUMENTO_DEVE_CONTER_APENAS_NUMEROS = "O argumento deve conter apenas números !";
+	private static final String O_ARGUMENTO_DEVE_ESTAR_PREENCHIDO = "O argumento deve estar preenchido !";
 
 	/**
 	 * Valor inteiro do módulo 10
@@ -165,7 +166,7 @@ public class Modulo {
 	 * resultado em % 11
 	 * </p>
 	 * 
-	 * @param numero número do CPF/CNPJ
+	 * @param numero número do CPF
 	 * @param limiteMin Limite inferior
 	 * @param limiteMax Limite superior
 	 * @return Resultado de calculeSomaSequencialMod11 % 11
@@ -177,6 +178,27 @@ public class Modulo {
 			throws IllegalArgumentException {
 
 		return (calculeSomaSequencialMod11(numero, limiteMin, limiteMax) % MOD11);
+	}
+
+	/**
+	 * Executa o cáculo do módulo 11 com os limites definidos.
+	 * 
+	 * <p>
+	 * Executa o método <code>calculeSomaSequencialMod11</code> e aplica o
+	 * resultado em % 11
+	 * </p>
+	 * 
+	 * @param base número do CNPJ
+	 * @param segundoDigito indica se é o segundo dígito verificador
+	 * @return Resultado de calculeSomaSequencialMod11 % 11
+	 * 
+	 * @since 0.2
+	 * @see #calculeSomaSequencialMod11(String, int, int)
+	 */
+	public static int calculeMod11(String base, boolean segundoDigito)
+			throws IllegalArgumentException {
+
+		return (calculeSomaSequencialMod11(base, segundoDigito) % MOD11);
 	}
 
 	/**
@@ -230,7 +252,7 @@ public class Modulo {
 	 * </pre>
 	 * 
 	 * 
-	 * @param numero Número do CPF ou CNPJ
+	 * @param numero Número do CPF
 	 * @param limiteMin Limite Inferior
 	 * @param limiteMax Limite Superior
 	 * @return Soma da sequencia sem executar Mod 11
@@ -265,6 +287,54 @@ public class Modulo {
 
 		return soma;
 	}
+
+	 /**
+	 * Realiza o cálculo da soma na forma do módulo 11.
+	 * @param base Número do CNPJ
+	 * @param segundoDigito indica se é o segundo dígito verificador
+	 * @return Soma da sequencia sem executar Mod 11
+	 * @throws IllegalArgumentException Se o texto informado não for apenas um número
+	 * 
+	 * @since 0.2
+	 */
+	public static int calculeSomaSequencialMod11(String base, boolean segundoDigito) throws IllegalArgumentException {
+
+		int soma = 0;
+
+		if (StringUtils.isNotBlank(base)) {
+
+			int[] pesos = segundoDigito
+                ? new int[]{6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2}
+                : new int[]{5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+			for (int i = 0; i < base.length(); i++) {
+				int valor = converterChar(base.charAt(i));
+				soma += valor * pesos[i];
+			}
+
+		} else
+			Exceptions.throwIllegalArgumentException(
+					O_ARGUMENTO_DEVE_ESTAR_PREENCHIDO);
+
+		return soma;
+	}
+
+	/**
+     * Converte caractere para valor numérico conforme regra:
+     *
+     * - Dígitos: valor normal
+     * - Letras: ASCII - 48
+     *
+     * Ex:
+     * 'A' (65) -&gt; 17
+     * 'B' (66) -&gt; 18
+	 * @param c Caractere a ser convertido
+	 * @return Valor numérico do caractere
+     */
+    private static int converterChar(char c) {
+        return ((int) c) - 48;
+    }
+
 
 	/**
 	 * Executa o cáculo do módulo 10 com os limites definidos.

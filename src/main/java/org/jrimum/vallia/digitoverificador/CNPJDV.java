@@ -81,33 +81,19 @@ public class CNPJDV extends AbstractDigitoVerificador {
 
 	/**
 	 * <p>
-	 * Liminte mínimo do para cálculo no módulo 11.
-	 *</p>
-	 */
-	private static final int LIMITE_MINIMO = 2;
-
-	/**
-	 * <p>
-	 * Liminte máximo do para cálculo no módulo 11.
-	 *</p>
-	 */
-	private static final int LIMITE_MAXIMO = 9;
-
-	/**
-	 * <p>
-	 * Expressão regular para validação dos doze primeiros números do CNPJ sem
+	 * Expressão regular para validação dos doze primeiros dígitos do CNPJ alfanumérico sem
 	 * formatação: <tt>"############"</tt>.
 	 * </p>
 	 */
-	private static final String REGEX_CNPJ_DV = "\\d{12}";
+	private static final String REGEX_CNPJ_DV = "[a-zA-Z0-9]{12}";
 
 	/**
 	 * <p>
-	 * Expressão regular para validação dos doze primeiros números do CNPJ
+	 * Expressão regular para validação dos doze primeiros dígitos do CNPJ alfanumérico
 	 * formatado: <tt>"##.###.###/####"</tt>.
 	 * </p>
 	 */
-	private static final String REGEX_CNPJ_DV_FORMATTED = "\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}";
+	private static final String REGEX_CNPJ_DV_FORMATTED = "[a-zA-Z0-9]{2}\\.[a-zA-Z0-9]{3}\\.[a-zA-Z0-9]{3}\\/[a-zA-Z0-9]{4}";
 
 	/**
 	 * @see org.jrimum.vallia.digitoverificador.AbstractDigitoVerificador#calcule(long)
@@ -133,23 +119,23 @@ public class CNPJDV extends AbstractDigitoVerificador {
 	 * @since 0.2
 	 */
 	@Override
-	public int calcule(String numero) throws IllegalArgumentException {
+	public int calcule(String base) throws IllegalArgumentException {
 
 		int dv1 = 0;
 		int dv2 = 0;
 		
-		numero = removaFormatacao(numero);
+		base = removaFormatacao(base);
 
-		if (isFormatoValido(numero)) {
+		if (isFormatoValido(base)) {
 
-			dv1 = calculeDigito(numero);
-			dv2 = calculeDigito(numero + dv1);
+			dv1 = calculeDigito(base, false);
+			dv2 = calculeDigito(base + dv1, true);
 			
 		} else {
 			
 			Exceptions.throwIllegalArgumentException(
-				"O CNPJ [ " + numero
-				+ " ] deve conter apenas números, sendo eles no formato ##.###.###/#### ou ############ !");
+				"O CNPJ [ " + base
+				+ " ] deve estar no formato ##.###.###/#### ou ############ !");
 		}
 
 		return Integer.parseInt(dv1 + "" + dv2);
@@ -183,26 +169,36 @@ public class CNPJDV extends AbstractDigitoVerificador {
 	 *  <li>Está no formato ##.###.###/#### ou ############</li>
 	 * </ul>
 	 * 
-	 * @param numero - CNPJ para ser validado
+	 * @param base - CNPJ para ser validado
 	 * @return <code>true</code> caso o número esteja em um formato válido; <code>false</code>, 
 	 * caso contrário.
 	 */
-	private boolean isFormatoValido(String numero) {
+	private boolean isFormatoValido(String base) {
 		
 		boolean isValido = false;
 		
-		if (isNotBlank(numero)) {
+		if (isNotBlank(base)) {
 			
-			boolean formatoValido = (Pattern.matches(REGEX_CNPJ_DV, numero) || Pattern.matches(REGEX_CNPJ_DV_FORMATTED, numero));
-
+			boolean formatoValido = (Pattern.matches(REGEX_CNPJ_DV, base) || Pattern.matches(REGEX_CNPJ_DV_FORMATTED, base));
+			
 			if (formatoValido) {
 				
-				isValido = Long.parseLong(numero) > 0;
+				isValido = !isSequenciaRepetida(base);
 			}
 		}
 		
 		return isValido;
 	}
+
+	private static boolean isSequenciaRepetida(String valor) {
+        char primeiro = valor.charAt(0);
+        for (int i = 1; i < valor.length(); i++) {
+            if (valor.charAt(i) != primeiro) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 	/**
 	 * <p>
@@ -214,18 +210,20 @@ public class CNPJDV extends AbstractDigitoVerificador {
 	 * 
 	 * @param numero
 	 *            - número a partir do qual será extraído o dígito verificador.
+	 * @param segundoDigito
+	 *            - indica se é o segundo dígito verificador.
 	 * @return Um número que faz parte de um dígito verificador.
 	 * @throws IllegalArgumentException
 	 *             caso o número não esteja no formatador desejável.
 	 * 
 	 * @since 0.2
 	 */
-	private int calculeDigito(String numero) throws IllegalArgumentException {
+	private int calculeDigito(String numero, boolean segundoDigito) throws IllegalArgumentException {
 
 		int dv = 0;
 		int resto = 0;
 
-		resto = Modulo.calculeMod11(numero, LIMITE_MINIMO, LIMITE_MAXIMO);
+		resto = Modulo.calculeMod11(numero, segundoDigito);
 
 		if (resto >= 2) {
 

@@ -62,6 +62,10 @@ public class TestCNPJValidator{
 		validadorCNPJ = AbstractCPRFValidator.create("11222333000182");
 		
 		assertFalse(validadorCNPJ.isValido());
+
+		validadorCNPJ = AbstractCPRFValidator.create("ZS3VXN5L000137");
+		
+		assertTrue(validadorCNPJ.isValido());
 	}
 
 }
