@@ -86,7 +86,7 @@ public abstract class AbstractCPRFValidator {
 	 * Expressão regular para validação de um cadastro: "###" ou
 	 * "##############".
 	 */
-	private static final String REGEX_CADASTRO = "\\d{3,14}";
+	private static final String REGEX_CADASTRO = "[A-Za-z0-9]{3,14}";
 
 	/**
 	 * Representa o tipo de cadastro e fornece o autenticador correto de a cordo
